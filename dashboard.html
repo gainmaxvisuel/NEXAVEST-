@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEXAVEST — Accueil</title>
+
+  <style>
+    :root{
+      --navy:#071b49;
+      --blue:#1259c3;
+      --cyan:#16a9df;
+      --gold:#d99a16;
+      --bg:#f4f7fb;
+      --white:#ffffff;
+      --text:#172033;
+      --muted:#6b7280;
+      --border:#e4e9f1;
+      --shadow:0 16px 45px rgba(7,27,73,.12);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+
+    body{
+      min-height:100vh;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      padding-bottom:92px;
+    }
+
+    button,a{font:inherit}
+
+    .topbar{
+      height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 22px;
+      background:rgba(255,255,255,.94);
+      border-bottom:1px solid var(--border);
+      position:sticky;
+      top:0;
+      z-index:20;
+      backdrop-filter:blur(12px);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:var(--navy);
+      font-weight:900;
+      font-size:21px;
+      letter-spacing:.3px;
+    }
+
+    .brand-mark{
+      width:38px;
+      height:38px;
+      border-radius:11px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:linear-gradient(145deg,var(--navy),var(--blue));
+      box-shadow:0 8px 20px rgba(18,89,195,.22);
+    }
+
+    .brand-mark svg{width:21px;height:21px}
+
+    .header-action{
+      width:42px;
+      height:42px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:#fff;
+      color:var(--navy);
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+    }
+
+    .header-action svg{width:20px;height:20px}
+
+    main{
+      width:min(100%,760px);
+      margin:0 auto;
+      padding:24px 16px 30px;
+    }
+
+    .welcome{
+      margin-bottom:20px;
+    }
+
+    .welcome small{
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .welcome h1{
+      color:var(--navy);
+      font-size:27px;
+      margin-top:4px;
+    }
+
+    /* CARTE UTILISATEUR */
+    .bank-card{
+      position:relative;
+      min-height:225px;
+      overflow:hidden;
+      border-radius:25px;
+      padding:25px;
+      color:#fff;
+      background:
+        radial-gradient(circle at 85% 15%,rgba(22,169,223,.45),transparent 30%),
+        radial-gradient(circle at 10% 100%,rgba(217,154,22,.24),transparent 35%),
+        linear-gradient(135deg,#06183e 0%,#0b367f 58%,#1166bf 100%);
+      box-shadow:var(--shadow);
+    }
+
+    .bank-card:before,
+    .bank-card:after{
+      content:"";
+      position:absolute;
+      border:1px solid rgba(255,255,255,.11);
+      border-radius:50%;
+      pointer-events:none;
+    }
+
+    .bank-card:before{
+      width:260px;
+      height:260px;
+      right:-125px;
+      top:-150px;
+    }
+
+    .bank-card:after{
+      width:210px;
+      height:210px;
+      left:-145px;
+      bottom:-150px;
+    }
+
+    .card-content{
+      position:relative;
+      z-index:2;
+      height:100%;
+      min-height:175px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+
+    .card-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:15px;
+    }
+
+    .user-block small{
+      display:block;
+      color:rgba(255,255,255,.65);
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:1.2px;
+      margin-bottom:5px;
+    }
+
+    .user-name{
+      font-size:19px;
+      font-weight:800;
+      max-width:320px;
+      word-break:break-word;
+    }
+
+    .country{
+      display:flex;
+      align-items:center;
+      gap:7px;
+      font-size:13px;
+      color:rgba(255,255,255,.82);
+      white-space:nowrap;
+    }
+
+    .flag{
+      font-size:19px;
+    }
+
+    .balance-label{
+      color:rgba(255,255,255,.65);
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:1.3px;
+      margin-bottom:4px;
+    }
+
+    .balance{
+      font-size:32px;
+      font-weight:900;
+      letter-spacing:-.5px;
+    }
+
+    .currency{
+      font-size:13px;
+      font-weight:700;
+      opacity:.75;
+      margin-left:4px;
+    }
+
+    .card-bottom{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:15px;
+    }
+
+    .phone{
+      color:rgba(255,255,255,.78);
+      font-size:13px;
+    }
+
+    .card-chip{
+      width:43px;
+      height:31px;
+      border-radius:7px;
+      border:1px solid rgba(255,255,255,.28);
+      background:linear-gradient(135deg,rgba(255,255,255,.26),rgba(255,255,255,.08));
+      position:relative;
+      overflow:hidden;
+    }
+
+    .card-chip:after{
+      content:"";
+      position:absolute;
+      width:70px;
+      height:1px;
+      background:rgba(255,255,255,.25);
+      top:14px;
+      left:-10px;
+      box-shadow:0 0 0 0 rgba(255,255,255,.2);
+    }
+
+    /* ACTIONS */
+    .actions{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:13px;
+      margin-top:16px;
+    }
+
+    .action{
+      min-height:66px;
+      border:1px solid var(--border);
+      border-radius:17px;
+      background:#fff;
+      display:flex;
+      align-items:center;
+      gap:13px;
+      padding:12px 16px;
+      text-decoration:none;
+      color:var(--text);
+      box-shadow:0 8px 24px rgba(7,27,73,.05);
+      transition:.18s ease;
+    }
+
+    .action:hover{
+      transform:translateY(-2px);
+      border-color:#cbd8ea;
+      box-shadow:0 12px 28px rgba(7,27,73,.09);
+    }
+
+    .action-icon{
+      width:42px;
+      height:42px;
+      flex:0 0 42px;
+      display:grid;
+      place-items:center;
+      border-radius:12px;
+      color:var(--blue);
+      background:#eef5ff;
+    }
+
+    .action-icon svg{
+      width:22px;
+      height:22px;
+    }
+
+    .action strong{
+      display:block;
+      color:var(--navy);
+      font-size:15px;
+      margin-bottom:2px;
+    }
+
+    .action span{
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    /* CONTENU */
+    .section{
+      margin-top:25px;
+    }
+
+    .section-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:12px;
+    }
+
+    .section-head h2{
+      color:var(--navy);
+      font-size:18px;
+    }
+
+    .section-head a{
+      color:var(--blue);
+      text-decoration:none;
+      font-size:13px;
+      font-weight:800;
+    }
+
+    .info-card{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:20px;
+      box-shadow:0 8px 25px rgba(7,27,73,.04);
+    }
+
+    .info-card h3{
+      color:var(--navy);
+      font-size:16px;
+      margin-bottom:7px;
+    }
+
+    .info-card p{
+      color:var(--muted);
+      line-height:1.6;
+      font-size:14px;
+    }
+
+    /* NAVIGATION FIXE */
+    .bottom-nav{
+      position:fixed;
+      left:0;
+      right:0;
+      bottom:0;
+      height:78px;
+      z-index:50;
+      display:flex;
+      justify-content:center;
+      background:rgba(255,255,255,.97);
+      border-top:1px solid var(--border);
+      box-shadow:0 -8px 30px rgba(7,27,73,.08);
+      backdrop-filter:blur(14px);
+    }
+
+    .nav-inner{
+      width:min(100%,760px);
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+    }
+
+    .nav-item{
+      height:78px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:5px;
+      color:#7a8495;
+      text-decoration:none;
+      font-size:11px;
+      font-weight:700;
+      position:relative;
+    }
+
+    .nav-item svg{
+      width:22px;
+      height:22px;
+      stroke-width:1.8;
+    }
+
+    .nav-item.active{
+      color:var(--blue);
+    }
+
+    .nav-item.active:before{
+      content:"";
+      position:absolute;
+      top:0;
+      width:36px;
+      height:3px;
+      border-radius:0 0 5px 5px;
+      background:var(--blue);
+    }
+
+    .hidden{display:none}
+
+    @media(max-width:480px){
+      main{padding:20px 13px 25px}
+      .topbar{padding:0 15px}
+      .bank-card{min-height:215px;padding:21px}
+      .balance{font-size:28px}
+      .user-name{font-size:17px}
+      .action{padding:11px 12px;gap:9px}
+      .action-icon{width:38px;height:38px;flex-basis:38px}
+      .action span{display:none}
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M5 17V7l7 7 7-7v10"/>
+        </svg>
+      </div>
+      <span>NEXAVEST</span>
+    </div>
+
+    <button class="header-action" type="button" aria-label="Notifications">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+        <path d="M10 21h4"/>
+      </svg>
+    </button>
+  </header>
+
+  <main>
+
+    <section class="welcome">
+      <small>Bienvenue dans votre espace</small>
+      <h1>Accueil</h1>
+    </section>
+
+    <!-- CARTE -->
+    <section class="bank-card">
+      <div class="card-content">
+
+        <div class="card-top">
+          <div class="user-block">
+            <small>Titulaire</small>
+            <div id="userName" class="user-name">Chargement...</div>
+          </div>
+
+          <div class="country">
+            <span id="countryFlag" class="flag">—</span>
+            <span id="countryName">—</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="balance-label">Solde disponible</div>
+          <div class="balance">
+            <span id="balance">0</span>
+            <span class="currency">XOF</span>
+          </div>
+        </div>
+
+        <div class="card-bottom">
+          <div id="phone" class="phone">—</div>
+          <div class="card-chip"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ACTIONS -->
+    <section class="actions">
+
+      <a href="deposit.html" class="action">
+        <div class="action-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M12 5v14"/>
+            <path d="M5 12h14"/>
+            <rect x="3" y="3" width="18" height="18" rx="4"/>
+          </svg>
+        </div>
+        <div>
+          <strong>Recharger</strong>
+          <span>Ajouter des fonds</span>
+        </div>
+      </a>
+
+      <a href="withdraw.html" class="action">
+        <div class="action-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M12 19V5"/>
+            <path d="m6 11 6-6 6 6"/>
+            <rect x="3" y="3" width="18" height="18" rx="4"/>
+          </svg>
+        </div>
+        <div>
+          <strong>Retirer</strong>
+          <span>Retirer des fonds</span>
+        </div>
+      </a>
+
+    </section>
+
+    <!-- ESPACE IMPORTANT -->
+    <section class="section">
+      <div class="section-head">
+        <h2>Votre espace NEXAVEST</h2>
+      </div>
+
+      <div class="info-card">
+        <h3>Gérez votre activité en toute simplicité</h3>
+        <p>
+          Retrouvez vos produits, votre équipe et les informations de votre
+          compte depuis les différents espaces de la plateforme.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVIGATION FIXE -->
+  <nav class="bottom-nav" aria-label="Navigation principale">
+    <div class="nav-inner">
+
+      <a href="dashboard.html" class="nav-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/>
+          <path d="M9 21v-6h6v6"/>
+        </svg>
+        <span>Accueil</span>
+      </a>
+
+      <a href="products.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5z"/>
+          <path d="M4 7.5 12 12l8-4.5"/>
+          <path d="M12 12v9"/>
+        </svg>
+        <span>Produit</span>
+      </a>
+
+      <a href="team.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="9" cy="8" r="3"/>
+          <path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/>
+          <path d="M16 5.2a3 3 0 0 1 0 5.6"/>
+          <path d="M18 14c1.8.7 3 2.3 3 4.5"/>
+        </svg>
+        <span>Équipe</span>
+      </a>
+
+      <a href="account.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="12" cy="8" r="3.5"/>
+          <path d="M4.5 21c.7-4 3.2-6 7.5-6s6.8 2 7.5 6"/>
+        </svg>
+        <span>Compte</span>
+      </a>
+
+    </div>
+  </nav>
+
+  <script>
+    /*
+      ==========================================================
+      NEXAVEST — DASHBOARD
+      ==========================================================
+
+      Les données viennent de la réponse de login_user().
+      login.html les enregistre sous "nexavest_user".
+    */
+
+    const userStorage = sessionStorage.getItem("nexavest_user");
+
+    if (!userStorage) {
+      // Aucun utilisateur connecté.
+      window.location.href = "login.html";
+    } else {
+      try {
+        const user = JSON.parse(userStorage);
+
+        if (!user.success || !user.user_id) {
+          throw new Error("Session utilisateur invalide");
+        }
+
+        document.getElementById("userName").textContent =
+          user.full_name || "Utilisateur";
+
+        document.getElementById("countryName").textContent =
+          user.country || "—";
+
+        document.getElementById("phone").textContent =
+          `${user.dial_code || ""} ${user.phone || ""}`.trim();
+
+        const balance = Number(user.balance_xof || 0);
+
+        document.getElementById("balance").textContent =
+          new Intl.NumberFormat("fr-FR", {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2
+          }).format(balance);
+
+        const flags = {
+          BF: "🇧🇫",
+          BJ: "🇧🇯",
+          TG: "🇹🇬",
+          CI: "🇨🇮"
+        };
+
+        document.getElementById("countryFlag").textContent =
+          flags[user.country_code] || "•";
+
+      } catch (error) {
+        console.error(error);
+        sessionStorage.removeItem("nexavest_user");
+        window.location.href = "login.html";
+      }
+    }
+  </script>
+
+</body>
+</html>
