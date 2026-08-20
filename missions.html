@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b2b66">
+<title>Missions - NEXAVEST</title>
+<style>
+*{box-sizing:border-box}:root{--navy:#102b5c;--blue:#1763c5;--muted:#737d8e;--line:#e5e9f1;--bg:#f5f7fb;--green:#23834a}body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:#102653;-webkit-font-smoothing:antialiased}.header{background:#fff;border-bottom:1px solid var(--line);padding:14px 22px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:5}.back{width:46px;height:46px;border:0;border-radius:15px;background:#eef4ff;color:#1859ad;font-size:29px;display:flex;align-items:center;justify-content:center;cursor:pointer}.brand{font-weight:800;font-size:25px;letter-spacing:-.4px}.container{max-width:680px;margin:auto;padding:25px 22px 48px}.eyebrow{font-size:15px;color:#7a8495;margin-bottom:5px}h1{font-size:38px;line-height:1.08;margin:0 0 10px;letter-spacing:-1.2px}.intro{font-size:17px;line-height:1.5;color:#707a8b;margin:0 0 20px;max-width:600px}.summary{background:linear-gradient(135deg,#123b82,#226bd0);color:#fff;border-radius:24px;padding:21px 22px 19px;margin-bottom:14px;box-shadow:0 12px 28px rgba(24,77,160,.13)}.summary-top{display:flex;justify-content:space-between;gap:18px}.label{font-size:12px;letter-spacing:1.7px;text-transform:uppercase;opacity:.8}.count{font-size:43px;line-height:1;font-weight:800;margin-top:6px}.next{text-align:right;font-size:14px;opacity:.92;padding-top:1px}.next strong{display:block;font-size:18px;margin-top:3px;line-height:1.2}.progress-track{height:9px;background:rgba(255,255,255,.28);border-radius:99px;margin-top:18px;overflow:hidden}.progress-bar{height:100%;width:0;background:#fff;border-radius:99px;transition:.4s}.toolbar{display:flex;justify-content:flex-end;margin-bottom:12px}.refresh{border:1px solid #dce3ef;background:#fff;color:#1857ad;border-radius:12px;padding:8px 13px;font-weight:700;font-size:14px;cursor:pointer}.message{display:none;padding:12px 14px;border-radius:14px;margin-bottom:14px;line-height:1.45;font-size:14px}.message.show{display:block}.error{background:#fff0f0;color:#a33333;border:1px solid #f3cccc}.success{background:#effaf2;color:#1e6b36;border:1px solid #cdebd4}.loading,.empty,.card,.info{background:#fff;border:1px solid var(--line);border-radius:20px}.loading{padding:18px;text-align:center;color:#7b8493;font-size:15px}.missions{display:grid;gap:11px}.card{padding:16px 17px;box-shadow:0 2px 9px rgba(18,42,82,.025)}.card-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}.badge{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:999px;background:#edf4ff;color:#1859ad;font-size:11px;font-weight:800;letter-spacing:.2px}.title{font-size:18px;font-weight:800;margin:7px 0 0;letter-spacing:-.2px}.reward{font-size:20px;font-weight:800;color:#1458b4;white-space:nowrap;line-height:1.2}.desc{color:#7a8392;line-height:1.4;margin:10px 0 12px;font-size:14px}.level-progress{margin:13px 0 12px;padding:11px 12px 10px;background:#f7f9fc;border:1px solid #edf0f5;border-radius:13px}.level-row{display:flex;justify-content:space-between;align-items:center;color:#7a8492;font-size:12px;margin-bottom:7px}.level-row strong{color:#193e77;font-size:13px}.level-track{height:7px;background:#e3e9f2;border-radius:99px;overflow:hidden}.level-bar{height:100%;width:0;background:linear-gradient(90deg,#1958ad,#2b73d5);border-radius:99px;transition:.4s}.action-wrap{margin-top:2px}.claim{width:100%;border:0;border-radius:12px;padding:11px;background:linear-gradient(135deg,#1558b7,#246fd0);color:#fff;font-weight:800;font-size:14px;cursor:pointer;box-shadow:0 5px 12px rgba(23,93,190,.15)}.claim:disabled{opacity:.6;cursor:wait}.claimed,.pending{width:100%;border-radius:12px;padding:10px 11px;text-align:center;font-weight:700;font-size:13px}.claimed{background:#edf8f1;color:var(--green)}.pending{background:#f5f7fa;color:#687487}.info{margin-top:16px;padding:16px 17px;color:#727c8c;line-height:1.5;font-size:13px}.info-row{display:flex;gap:10px;align-items:flex-start}.info-row+.info-row{margin-top:11px}.info-dot{width:7px;height:7px;min-width:7px;border-radius:50%;background:#2b6dc8;margin-top:7px}.info strong{color:#29364e}@media(max-width:520px){.header{padding:13px 18px}.back{width:44px;height:44px}.brand{font-size:24px}.container{padding:23px 22px 42px}h1{font-size:36px}.intro{font-size:16px;margin-bottom:18px}.summary{padding:19px 20px 17px;border-radius:22px}.count{font-size:41px}.next{font-size:13px}.next strong{font-size:17px}.card{padding:15px 16px}.reward{font-size:19px}}
+</style>
+</head>
+<body>
+<header class="header"><button class="back" id="backBtn">‹</button><div class="brand">NEXAVEST</div></header>
+<main class="container">
+<div class="eyebrow">Programme de récompenses</div>
+<h1>Missions</h1>
+<p class="intro">Invitez des personnes qui investissent et débloquez progressivement vos récompenses.</p>
+<div id="message" class="message"></div>
+<section class="summary"><div class="summary-top"><div><div class="label">Votre progression</div><div class="count" id="eligibleCount">0</div></div><div class="next">Prochain palier<strong id="nextLevel">—</strong></div></div><div class="progress-track"><div class="progress-bar" id="progressBar"></div></div></section>
+<div class="toolbar"><button class="refresh" id="refreshBtn">Actualiser</button></div>
+<div id="loading" class="loading">Chargement des missions...</div>
+<section id="missions" class="missions"></section>
+<section class="info"><div class="info-row"><span class="info-dot"></span><div>Une personne est comptée <strong>une seule fois</strong>, même si elle effectue plusieurs investissements.</div></div><div class="info-row"><span class="info-dot"></span><div>Seuls les investissements admissibles effectués à partir du <strong>20 août 2026</strong> sont pris en compte.</div></div><div class="info-row"><span class="info-dot"></span><div>Lorsqu'un palier est atteint, cliquez sur <strong>Réclamer</strong> pour recevoir votre récompense.</div></div></section>
+</main>
+<script>
+const SUPABASE_URL="https://wyhpqnvctzwtjzhxyduv.supabase.co";
+const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind5aHBxbnZjdHp3dGp6aHh5ZHV2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY4OTM0NTUsImV4cCI6MjEwMjQ2OTQ1NX0.RYHg__saoyzAIDfXmjK_2P6sCbi1jvc4QJanFECxjRw";
+const CLAIM_RPC_NAME="claim_referral_bonus";
+let currentUser=null,eligibleReferrals=0,levels=[],rewards=[];
+function getUser(){try{const x=JSON.parse(sessionStorage.getItem("nexavest_user")||"null");return x&&x.user_id?x:null}catch(e){return null}}
+currentUser=getUser();if(!currentUser)location.href="login.html";
+async function request(endpoint,options={}){const r=await fetch(SUPABASE_URL+endpoint,{...options,headers:{apikey:SUPABASE_ANON_KEY,Authorization:"Bearer "+SUPABASE_ANON_KEY,"Content-Type":"application/json",...(options.headers||{})}});const t=await r.text();let d=null;try{d=t?JSON.parse(t):null}catch(e){d=t}if(!r.ok)throw new Error(d?.message||d?.hint||d?.details||d?.error_description||d?.error||(typeof d==="string"?d:"Erreur de communication avec la base de données."));return d}
+async function rpc(name,body){return request("/rest/v1/rpc/"+encodeURIComponent(name),{method:"POST",body:JSON.stringify(body)})}
+function money(v){return new Intl.NumberFormat("fr-FR",{maximumFractionDigits:2}).format(Number(v||0))+" XOF"}
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]))}
+function msg(t,type="error"){const e=document.getElementById("message");e.textContent=t;e.className="message show "+type}
+function clearMsg(){const e=document.getElementById("message");e.textContent="";e.className="message"}
+function progress(){const n=Number(eligibleReferrals||0),next=levels.find(x=>Number(x.required_referrals)>n);document.getElementById("eligibleCount").textContent=n;if(next){const req=Number(next.required_referrals);document.getElementById("nextLevel").textContent=req+" "+(req>1?"personnes":"personne");const prev=[...levels].filter(x=>Number(x.required_referrals)<=n).sort((a,b)=>Number(b.required_referrals)-Number(a.required_referrals))[0];const base=prev?Number(prev.required_referrals):0;document.getElementById("progressBar").style.width=Math.max(0,Math.min(100,((n-base)/Math.max(1,req-base))*100))+"%"}else{document.getElementById("nextLevel").textContent=levels.length?"Tous atteints":"—";document.getElementById("progressBar").style.width=levels.length?Math.min(100,n/Number(levels[levels.length-1].required_referrals)*100)+"%":"0%"}}
+function render(){
+ const box=document.getElementById("missions");box.innerHTML="";
+ if(!levels.length){box.innerHTML='<div class="empty">Aucun palier de mission n’est disponible pour le moment.</div>';return}
+ levels.forEach(l=>{
+   const req=Number(l.required_referrals),bonus=Number(l.bonus_xof),r=rewards.find(x=>Number(x.required_referrals)===req),reached=eligibleReferrals>=req;
+   const pct=Math.max(0,Math.min(100,(eligibleReferrals/Math.max(1,req))*100));
+   let action;
+   if(r&&r.claimed_at) action='<div class="claimed">✓ Récompense déjà réclamée</div>';
+   else if(reached&&r) action='<button class="claim" data-id="'+esc(r.id)+'">Réclamer '+money(bonus)+'</button>';
+   else if(reached) action='<div class="pending">Palier atteint — actualisez pour préparer la récompense.</div>';
+   else action='<div class="pending">Encore '+(req-eligibleReferrals)+(req-eligibleReferrals>1?' personnes':' personne')+' pour débloquer ce palier</div>';
+   const c=document.createElement("article");c.className="card";
+   c.innerHTML='<div class="card-head"><div><span class="badge">Palier '+req+'</span><div class="title">'+req+(req>1?' personnes':' personne')+'</div></div><div class="reward">'+money(bonus)+'</div></div>'+
+     '<div class="level-progress"><div class="level-row"><span>Progression</span><strong>'+Math.min(eligibleReferrals,req)+' / '+req+'</strong></div><div class="level-track"><div class="level-bar" style="width:'+pct+'%"></div></div></div>'+
+     '<p class="desc">Récompense de parrainage pour avoir atteint '+req+(req>1?' filleuls admissibles.':' filleul admissible.')+'</p><div class="action-wrap">'+action+'</div>';
+   box.appendChild(c)
+ });
+ box.querySelectorAll(".claim").forEach(b=>b.onclick=()=>claim(b.dataset.id,b))
+}
+async function load(){document.getElementById("loading").style.display="block";clearMsg();try{levels=await request("/rest/v1/referral_bonus_levels?select=id,required_referrals,bonus_xof,is_active&is_active=eq.true&order=required_referrals.asc");const result=await rpc("check_referral_bonus",{p_user_id:currentUser.user_id});if(result?.success===false)throw new Error(result.message||"La vérification des missions a échoué.");eligibleReferrals=Number(result?.eligible_referrals||0);rewards=await request("/rest/v1/referral_bonus_rewards?select=id,beneficiary_user_id,required_referrals,bonus_xof,source_investment_id,claimed_at,created_at&beneficiary_user_id=eq."+encodeURIComponent(currentUser.user_id)+"&order=required_referrals.asc");progress();render();document.getElementById("loading").style.display="none"}catch(e){console.error(e);document.getElementById("loading").style.display="none";document.getElementById("missions").innerHTML='<div class="empty">Impossible de charger les missions.</div>';msg("Erreur de communication avec la base de données : "+e.message);progress()}}
+async function claim(id,button){button.disabled=true;button.textContent="Réclamation...";try{const result=await rpc(CLAIM_RPC_NAME,{p_reward_id:id});if(result?.success===false)throw new Error(result.message||"La récompense n’a pas pu être réclamée.");msg(result?.message||"Récompense réclamée avec succès.","success");rewards=await request("/rest/v1/referral_bonus_rewards?select=id,beneficiary_user_id,required_referrals,bonus_xof,source_investment_id,claimed_at,created_at&beneficiary_user_id=eq."+encodeURIComponent(currentUser.user_id)+"&order=required_referrals.asc");render()}catch(e){button.disabled=false;button.textContent="Réclamer";msg("Impossible de réclamer cette récompense : "+e.message)}}
+document.getElementById("backBtn").onclick=()=>{if(document.referrer&&document.referrer.includes("team.html"))history.back();else location.href="team.html"};document.getElementById("refreshBtn").onclick=load;load();
+</script>
+</body>
+</html>
