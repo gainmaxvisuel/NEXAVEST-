@@ -1,0 +1,2085 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEXAVEST — Recharge</title>
+
+  <style>
+    :root {
+      --primary-color: #e29578;
+      --primary-dark: #d87d56;
+      --orange-brand: #ff6600;
+      --bg-color: #f4f5f7;
+      --card-bg: #ffffff;
+      --text-dark: #2d3748;
+      --text-muted: #718096;
+      --border-color: #e2e8f0;
+      --radius: 12px;
+      --navy: #071b49;
+      --blue: #1259c3;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background: var(--bg-color);
+      color: var(--text-dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 10px;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .mobile-container {
+      width: 100%;
+      max-width: 420px;
+      background: var(--card-bg);
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      overflow: hidden;
+      position: relative;
+      min-height: 650px;
+    }
+
+    /* =========================
+       BANNER
+    ========================== */
+
+    .banner {
+      width: 100%;
+      height: 160px;
+      background: linear-gradient(135deg, #071b49, #1259c3, #16a9df);
+      display: flex;
+      align-items: flex-end;
+      padding: 15px;
+    }
+
+    .banner-title {
+      color: #fff;
+      font-weight: 900;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    }
+
+    /* =========================
+       PAGES
+    ========================== */
+
+    .page {
+      display: none;
+      padding: 20px;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* =========================
+       PAGE 1
+    ========================== */
+
+    .section-label {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-dark);
+    }
+
+    .amounts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .amount-btn {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      padding: 12px 6px;
+      text-align: center;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .amount-btn:hover {
+      border-color: var(--primary-dark);
+    }
+
+    .amount-btn.selected {
+      border-color: var(--primary-dark);
+      background: #fff5f0;
+      color: var(--primary-dark);
+      box-shadow: 0 0 0 2px rgba(216,125,86,.08);
+    }
+
+    .input-box {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 20px;
+    }
+
+    .input-box:focus-within {
+      border-color: var(--primary-dark);
+      box-shadow: 0 0 0 3px rgba(216,125,86,.1);
+    }
+
+    .input-prefix {
+      font-weight: 800;
+      color: var(--text-muted);
+      margin-right: 10px;
+    }
+
+    .input-field {
+      border: none;
+      background: transparent;
+      outline: none;
+      width: 100%;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .input-field::placeholder {
+      color: #a0aec0;
+    }
+
+    .mode-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #2d3748;
+      color: #fff;
+      padding: 14px 16px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+    }
+
+    .mode-card-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+    }
+
+    .orange-dot {
+      width: 27px;
+      height: 27px;
+      border-radius: 7px;
+      background: #ff6600;
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(
+        135deg,
+        var(--primary-color),
+        var(--primary-dark)
+      );
+      color: #fff;
+      border: none;
+      padding: 14px;
+      border-radius: 25px;
+      font-size: 1rem;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(226,149,120,.4);
+      transition: .2s;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-submit:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .note-text {
+      font-size: 0.8rem;
+      color: #38a169;
+      text-align: center;
+      margin-top: 15px;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .minimum-text {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      margin-top: 9px;
+    }
+
+    /* =========================
+       PAGE 2 / PAGE 3
+    ========================== */
+
+    .overlay-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.08);
+      border: 1px solid var(--border-color);
+    }
+
+    .brand-header {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .brand-title {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: #c084fc;
+      letter-spacing: 1px;
+    }
+
+    .instruction-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+
+    .amount-display {
+      font-size: .95rem;
+      margin-bottom: 15px;
+      color: var(--text-dark);
+    }
+
+    .amount-highlight {
+      color: #d97706;
+      font-weight: 900;
+      font-size: 1.1rem;
+    }
+
+    .payment-options {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .pay-option {
+      border: 2px solid var(--orange-brand);
+      border-radius: 10px;
+      padding: 10px 20px;
+      text-align: center;
+      width: 120px;
+      background: #fff5eb;
+    }
+
+    .orange-logo {
+      background: #ff6600;
+      color: white;
+      font-weight: 900;
+      padding: 6px;
+      border-radius: 4px;
+      font-size: .8rem;
+    }
+
+    .pay-option-title {
+      font-size: .85rem;
+      font-weight: 900;
+      color: var(--text-dark);
+      margin-top: 5px;
+    }
+
+    .alert-box {
+      background: #fff5f5;
+      border: 1px solid #feb2b2;
+      border-radius: 8px;
+      padding: 10px;
+      font-size: .75rem;
+      color: #e53e3e;
+      margin-bottom: 20px;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      line-height: 1.4;
+    }
+
+    /* =========================
+       PAGE 3
+    ========================== */
+
+    .info-group {
+      background: #f8fafc;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .info-row {
+      margin-bottom: 12px;
+    }
+
+    .info-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .info-label {
+      font-size: .8rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .info-value-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .info-value {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: #d97706;
+      word-break: break-word;
+    }
+
+    .btn-copy {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 5px;
+    }
+
+    .copy-success {
+      font-size: .7rem;
+      color: #38a169;
+      margin-top: 3px;
+      display: none;
+    }
+
+    .ussd-code {
+      text-align: center;
+      font-weight: 900;
+      color: #d97706;
+      margin: 12px 0;
+      font-size: .88rem;
+      word-break: break-all;
+      line-height: 1.5;
+    }
+
+    .ussd-copy {
+      cursor: pointer;
+      margin-left: 5px;
+    }
+
+    .refresh-section {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .btn-refresh {
+      background: #d97706;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-weight: 900;
+      font-size: .85rem;
+      cursor: pointer;
+    }
+
+    .btn-refresh:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
+    .paid-amount-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f8fafc;
+      padding: 10px;
+      border-radius: 8px;
+      gap: 10px;
+    }
+
+    .payment-status {
+      display: none;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 12px;
+      font-size: .78rem;
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    .payment-status.show {
+      display: block;
+    }
+
+    .payment-status.success {
+      background: #eaf7ef;
+      color: #16794b;
+      border: 1px solid #ccebd9;
+    }
+
+    .payment-status.error {
+      background: #fff1f0;
+      color: #b42318;
+      border: 1px solid #ffd7d2;
+    }
+
+    .payment-status.pending {
+      background: #fff8e6;
+      color: #946200;
+      border: 1px solid #ffe4a8;
+    }
+
+    .error-message {
+      display: none;
+      margin-top: 12px;
+      background: #fff1f0;
+      color: #b42318;
+      border: 1px solid #ffd7d2;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: .78rem;
+      line-height: 1.4;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    .back-button {
+      width: 100%;
+      border: 1px solid var(--border-color);
+      background: white;
+      color: var(--text-dark);
+      padding: 11px;
+      border-radius: 22px;
+      margin-top: 10px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    @media(max-width:380px) {
+      .page {
+        padding: 16px;
+      }
+
+      .amount-btn {
+        font-size: .82rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="mobile-container">
+
+  <!-- =========================
+       BANNER
+  ========================== -->
+
+  <div class="banner">
+    <div class="banner-title">NEXAVEST — RECHARGE</div>
+  </div>
+
+
+  <!-- =========================
+       PAGE 1 : MONTANT
+  ========================== -->
+
+  <div id="page1" class="page active">
+
+    <div class="section-label">
+      Sélectionnez le montant de la recharge
+    </div>
+
+    <div class="amounts-grid">
+
+      <div class="amount-btn selected"
+           data-amount="3500"
+           onclick="selectAmount(3500)">
+        3 500
+      </div>
+
+      <div class="amount-btn"
+           data-amount="8000"
+           onclick="selectAmount(8000)">
+        8 000
+      </div>
+
+      <div class="amount-btn"
+           data-amount="20000"
+           onclick="selectAmount(20000)">
+        20 000
+      </div>
+
+      <div class="amount-btn"
+           data-amount="50000"
+           onclick="selectAmount(50000)">
+        50 000
+      </div>
+
+      <div class="amount-btn"
+           data-amount="80000"
+           onclick="selectAmount(80000)">
+        80 000
+      </div>
+
+      <div class="amount-btn"
+           data-amount="100000"
+           onclick="selectAmount(100000)">
+        100 000
+      </div>
+
+      <div class="amount-btn"
+           data-amount="200000"
+           onclick="selectAmount(200000)"
+           style="grid-column: span 3;">
+        200 000
+      </div>
+
+    </div>
+
+
+    <div class="section-label">
+      Saisissez un autre montant
+    </div>
+
+    <div class="input-box">
+
+      <span class="input-prefix">XOF</span>
+
+      <input
+        type="number"
+        id="customAmount"
+        class="input-field"
+        placeholder="Saisissez le montant"
+        inputmode="numeric"
+        min="1"
+        step="1"
+        oninput="clearSelectedBtn()"
+      >
+
+    </div>
+
+
+    <div class="section-label">
+      Mode de recharge
+    </div>
+
+    <div class="mode-card">
+
+      <div class="mode-card-left">
+
+        <div class="orange-dot">
+          O
+        </div>
+
+        Burkina Faso — Orange Money
+
+      </div>
+
+      <span>✓</span>
+
+    </div>
+
+
+    <button
+      id="confirmAmountBtn"
+      class="btn-submit"
+      onclick="goToPage2()">
+      Confirmer
+    </button>
+
+    <div class="minimum-text">
+      Dépôt minimum :
+      <strong id="minimum">
+        Chargement...
+      </strong>
+    </div>
+
+    <div class="note-text">
+      Si le paiement n'est pas arrivé après un long délai,
+      veuillez contacter l'administration.
+    </div>
+
+    <div id="page1Error" class="error-message"></div>
+
+  </div>
+
+
+  <!-- =========================
+       PAGE 2 : NUMÉRO
+  ========================== -->
+
+  <div id="page2" class="page">
+
+    <div class="overlay-card">
+
+      <div class="brand-header">
+        <div class="brand-title">
+          NEXAVEST
+        </div>
+      </div>
+
+      <p class="instruction-text">
+        Veuillez sélectionner votre mode de paiement et
+        saisir le numéro Orange Money que vous utiliserez
+        pour effectuer le paiement.
+      </p>
+
+
+      <div class="amount-display">
+        Montant de paiement :
+        <span
+          class="amount-highlight"
+          id="displayAmountP2">
+          XOF 3 500
+        </span>
+      </div>
+
+
+      <div
+        class="section-label"
+        style="text-align:center;">
+        Veuillez sélectionner un mode de paiement
+      </div>
+
+
+      <div class="payment-options">
+
+        <div class="pay-option">
+
+          <div class="orange-logo">
+            orange
+          </div>
+
+          <div class="pay-option-title">
+            ORANGE MONEY
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="input-box">
+
+        <span class="input-prefix">
+          +226
+        </span>
+
+        <input
+          type="tel"
+          id="userPhone"
+          class="input-field"
+          placeholder="Votre numéro Orange"
+          inputmode="numeric"
+          maxlength="8"
+        >
+
+      </div>
+
+
+      <div class="alert-box">
+
+        <span>⚠️</span>
+
+        <div>
+          Veuillez saisir correctement votre numéro de
+          paiement. Assurez-vous d'utiliser le même compte
+          Orange Money pour effectuer la transaction.
+        </div>
+
+      </div>
+
+
+      <button
+        id="confirmPhoneBtn"
+        class="btn-submit"
+        onclick="goToPage3()">
+        Confirmer ➔
+      </button>
+
+      <button
+        class="back-button"
+        type="button"
+        onclick="goToPage1()">
+        ← Modifier le montant
+      </button>
+
+      <div id="page2Error" class="error-message"></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       PAGE 3 : PAIEMENT
+  ========================== -->
+
+  <div id="page3" class="page">
+
+    <div class="overlay-card">
+
+      <h3 style="font-size:1.1rem;margin-bottom:5px;">
+        Effectuez votre paiement
+      </h3>
+
+      <p
+        class="instruction-text"
+        style="text-align:left;margin-bottom:15px;">
+        Copiez les informations ci-dessous puis effectuez
+        le paiement avec votre compte
+        <strong style="color:#e53e3e;">
+          ORANGE MONEY
+        </strong>.
+      </p>
+
+
+      <!-- Informations du paiement -->
+
+      <div class="info-group">
+
+        <div class="info-row">
+
+          <div class="info-label">
+            Montant total payable :
+          </div>
+
+          <div class="info-value-box">
+
+            <span
+              class="info-value"
+              id="displayAmountP3">
+              XOF 3 500
+            </span>
+
+            <button
+              class="btn-copy"
+              onclick="copyAmount()"
+              title="Copier le montant">
+              📋
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <div class="info-label">
+            ORANGE Compte :
+          </div>
+
+          <div class="info-value-box">
+
+            <span
+              class="info-value"
+              id="merchantNumber">
+              45250868
+            </span>
+
+            <button
+              class="btn-copy"
+              onclick="copyToClipboard('45250868')"
+              title="Copier le numéro">
+              📋
+            </button>
+
+          </div>
+
+          <div
+            id="copyNumberSuccess"
+            class="copy-success">
+            Numéro copié.
+          </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <div class="info-label">
+            Nom du compte :
+          </div>
+
+          <div class="info-value-box">
+
+            <span
+              class="info-value"
+              style="font-size:1rem;"
+              id="merchantName">
+              Sagnon Gaoussou
+            </span>
+
+            <button
+              class="btn-copy"
+              onclick="copyToClipboard('Sagnon Gaoussou')"
+              title="Copier le nom">
+              📋
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- Bouton paiement -->
+
+      <button
+        class="btn-submit"
+        style="background:#e67e22;"
+        onclick="triggerUSSD()">
+
+        📞 Cliquez pour payer
+
+      </button>
+
+
+      <!-- USSD -->
+
+      <div
+        class="ussd-code"
+        id="ussdText">
+        *144*2*1*45250868*3500#
+        <span
+          class="ussd-copy"
+          onclick="copyUSSD()">
+          📋
+        </span>
+      </div>
+
+
+      <!-- Vérification -->
+
+      <div class="refresh-section">
+
+        <p
+          style="font-weight:bold;font-size:.9rem;margin-bottom:5px;">
+          Paiement achevé ?
+        </p>
+
+        <p
+          style="font-size:.75rem;color:var(--text-muted);margin-bottom:10px;">
+          Après avoir effectué le paiement, cliquez sur
+          <span
+            style="color:#e53e3e;font-weight:bold;">
+            « Rafraîchir »
+          </span>
+          pour vérifier le statut de votre demande.
+        </p>
+
+
+        <div class="paid-amount-box">
+
+          <div style="text-align:left;">
+
+            <span
+              style="font-size:.8rem;color:var(--text-muted);">
+              Montant demandé :
+            </span>
+
+            <br>
+
+            <strong
+              id="requestedAmountBottom"
+              style="color:#a0aec0;">
+              XOF 3 500
+            </strong>
+
+          </div>
+
+
+          <button
+            id="refreshBtn"
+            class="btn-refresh"
+            onclick="refreshStatus()">
+            Rafraîchir
+          </button>
+
+        </div>
+
+
+        <div
+          id="paymentStatus"
+          class="payment-status">
+        </div>
+
+      </div>
+
+
+      <button
+        class="back-button"
+        type="button"
+        onclick="goToPage2()">
+        ← Modifier mon numéro
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+  /* =====================================================
+     CONFIGURATION SUPABASE
+  ===================================================== */
+
+  const SUPABASE_URL =
+    "https://wyhpqnvctzwtjzhxyduv.supabase.co";
+
+  const SUPABASE_ANON_KEY =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind5aHBxbnZjdHp6dGp6aHh5ZHV2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY4OTM0NTUsImV4cCI6MjEwMjQ2OTQ1NX0.RYHg__saoyzAIDfXmjK_2P6sCbi1jvc4QJanFECxjRw";
+
+
+  /* =====================================================
+     COMPTE MARCHAND ORANGE
+  ===================================================== */
+
+  const MERCHANT_NUMBER = "45250868";
+  const MERCHANT_NAME = "Sagnon Gaoussou";
+
+
+  /* =====================================================
+     UTILISATEUR CONNECTÉ
+  ===================================================== */
+
+  let currentUser = null;
+
+  try {
+
+    currentUser =
+      JSON.parse(
+        sessionStorage.getItem("nexavest_user") || "null"
+      );
+
+  } catch (e) {
+
+    currentUser = null;
+
+  }
+
+
+  if (!currentUser?.success || !currentUser.user_id) {
+
+    window.location.href = "login.html";
+}
+
+
+  /* =====================================================
+     VARIABLES
+  ===================================================== */
+
+  let selectedAmountValue = 3500;
+
+  let minimumDeposit = 2000;
+
+  let currentDepositId = null;
+
+  let currentDepositStatus = "pending";
+
+  let userPaymentPhone = "";
+
+
+  /* =====================================================
+     SUPABASE FETCH
+  ===================================================== */
+
+  async function supabaseFetch(path, options = {}) {
+
+    const response = await fetch(
+      SUPABASE_URL + path,
+      {
+        ...options,
+
+        headers: {
+          apikey: SUPABASE_ANON_KEY,
+
+          Authorization:
+            "Bearer " + SUPABASE_ANON_KEY,
+
+          ...(options.headers || {})
+        }
+      }
+    );
+
+
+    const text = await response.text();
+
+    let data = null;
+
+    try {
+
+      data = text
+        ? JSON.parse(text)
+        : null;
+
+    } catch (e) {
+
+      data = text;
+
+    }
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        data?.message ||
+        data?.hint ||
+        data?.details ||
+        "Une erreur est survenue."
+      );
+
+    }
+
+
+    return data;
+
+  }
+
+
+  /* =====================================================
+     FORMAT MONNAIE
+  ===================================================== */
+
+  function money(value) {
+
+    return new Intl.NumberFormat(
+      "fr-FR",
+      {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+      }
+    ).format(Number(value || 0));
+
+  }
+
+
+  /* =====================================================
+     CHARGER PARAMÈTRE MINIMUM
+  ===================================================== */
+
+  async function loadSettings() {
+
+    try {
+
+      const rows =
+        await supabaseFetch(
+          "/rest/v1/platform_settings?select=minimum_deposit_xof&limit=1"
+        );
+
+
+      if (rows?.length) {
+
+        minimumDeposit =
+          Number(rows[0].minimum_deposit_xof) || 2000;
+
+      }
+
+
+      document.getElementById("minimum").textContent =
+        money(minimumDeposit) + " XOF";
+
+    } catch (e) {
+
+      minimumDeposit = 2000;
+
+      document.getElementById("minimum").textContent =
+        "2 000 XOF";
+
+    }
+
+  }
+
+
+  /* =====================================================
+     SÉLECTION DU MONTANT
+  ===================================================== */
+
+  function selectAmount(value) {
+
+    selectedAmountValue = Number(value);
+
+    document.getElementById("customAmount").value = "";
+
+
+    document
+      .querySelectorAll(".amount-btn")
+      .forEach(btn => {
+
+        const amount =
+          Number(btn.dataset.amount);
+
+        btn.classList.toggle(
+          "selected",
+          amount === selectedAmountValue
+        );
+
+      });
+
+
+    hideError("page1Error");
+
+  }
+
+
+  /* =====================================================
+     MONTANT PERSONNALISÉ
+  ===================================================== */
+
+  function clearSelectedBtn() {
+
+    document
+      .querySelectorAll(".amount-btn")
+      .forEach(btn =>
+        btn.classList.remove("selected")
+      );
+
+
+    const value =
+      Number(
+        document.getElementById("customAmount").value
+      );
+
+
+    if (
+      Number.isFinite(value) &&
+      value > 0
+    ) {
+
+      selectedAmountValue = Math.floor(value);
+
+    }
+
+  }
+
+
+  /* =====================================================
+     PAGE 1 → PAGE 2
+  ===================================================== */
+
+  function goToPage2() {
+
+    if (
+      document.getElementById("page2").classList.contains("active")
+    ) {
+
+      document
+        .getElementById("page2")
+        .classList.remove("active");
+
+      document
+        .getElementById("page1")
+        .classList.add("active");
+
+      return;
+
+    }
+
+
+    const customValue =
+      Number(
+        document.getElementById("customAmount").value
+      );
+
+
+    if (
+      Number.isFinite(customValue) &&
+      customValue > 0
+    ) {
+
+      selectedAmountValue =
+        Math.floor(customValue);
+
+    }
+
+
+    if (
+      !Number.isFinite(selectedAmountValue) ||
+      selectedAmountValue <= 0
+    ) {
+
+      showError(
+        "page1Error",
+        "Veuillez saisir un montant valide."
+      );
+
+      return;
+
+    }
+
+
+    if (
+      selectedAmountValue < minimumDeposit
+    ) {
+
+      showError(
+        "page1Error",
+        "Le dépôt minimum est de " +
+        money(minimumDeposit) +
+        " XOF."
+      );
+
+      return;
+
+    }
+
+
+    document.getElementById(
+      "displayAmountP2"
+    ).textContent =
+      "XOF " + money(selectedAmountValue);
+
+
+    document
+      .getElementById("page1")
+      .classList.remove("active");
+
+    document
+      .getElementById("page2")
+      .classList.add("active");
+
+
+    hideError("page1Error");
+
+  }
+
+
+  /* =====================================================
+     PAGE 2 → PAGE 3
+  ===================================================== */
+
+  async function goToPage3() {
+
+    const phoneInput =
+      document.getElementById("userPhone");
+
+    let phone =
+      phoneInput.value
+        .replace(/\D/g, "")
+        .trim();
+
+
+    if (!phone) {
+
+      showError(
+        "page2Error",
+        "Veuillez saisir votre numéro Orange Money."
+      );
+
+      return;
+
+    }
+
+
+    if (phone.length !== 8) {
+
+      showError(
+        "page2Error",
+        "Le numéro Orange Money doit contenir 8 chiffres."
+      );
+
+      return;
+
+    }
+
+
+    userPaymentPhone = phone;
+
+
+    const button =
+      document.getElementById("confirmPhoneBtn");
+
+
+    button.disabled = true;
+
+    button.textContent =
+      "Création de la demande...";
+
+hideError("page2Error");
+
+
+    try {
+
+      /*
+       * IMPORTANT :
+       *
+       * La demande est créée AVANT
+       * l'ouverture du paiement.
+       *
+       * Elle reste "pending".
+       *
+       * Aucun crédit de solde n'est effectué
+       * à cette étape.
+       */
+
+      const result =
+        await supabaseFetch(
+          "/rest/v1/rpc/create_deposit",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body: JSON.stringify({
+
+              p_user_id:
+                currentUser.user_id,
+
+              p_amount_xof:
+                selectedAmountValue
+
+            })
+          }
+        );
+
+
+      /*
+       * Selon le RETURNS TABLE de votre fonction,
+       * Supabase peut retourner un tableau.
+       */
+
+      if (Array.isArray(result) && result.length) {
+
+        currentDepositId =
+          result[0].deposit_id ||
+          result[0].id ||
+          null;
+
+        currentDepositStatus =
+          result[0].status ||
+          "pending";
+
+      } else if (result?.deposit_id) {
+
+        currentDepositId =
+          result.deposit_id;
+
+        currentDepositStatus =
+          result.status ||
+          "pending";
+
+      }
+
+
+      /*
+       * Préparation de la page de paiement.
+       */
+
+      document.getElementById(
+        "displayAmountP3"
+      ).textContent =
+        "XOF " + money(selectedAmountValue);
+
+
+      document.getElementById(
+        "requestedAmountBottom"
+      ).textContent =
+        "XOF " + money(selectedAmountValue);
+
+
+      updateUSSD();
+
+
+      document
+        .getElementById("page2")
+        .classList.remove("active");
+
+      document
+        .getElementById("page3")
+        .classList.add("active");
+
+
+      /*
+       * On mémorise l'ID pour pouvoir vérifier
+       * cette demande plus tard.
+       */
+
+      if (currentDepositId) {
+
+        sessionStorage.setItem(
+          "nexavest_current_deposit",
+          JSON.stringify({
+            deposit_id:
+              currentDepositId,
+
+            amount:
+              selectedAmountValue,
+
+            phone:
+              userPaymentPhone,
+
+            status:
+              currentDepositStatus
+          })
+        );
+
+      }
+
+    } catch (e) {
+
+      console.error(
+        "create_deposit:",
+        e
+      );
+
+
+      showError(
+        "page2Error",
+        e.message ||
+        "Impossible de créer la demande de dépôt."
+      );
+
+    } finally {
+
+      button.disabled = false;
+
+      button.textContent =
+        "Confirmer ➔";
+
+    }
+
+  }
+
+
+  /* =====================================================
+     USSD
+  ===================================================== */
+
+  function buildUSSD() {
+
+    return (
+      "*144*2*1*" +
+      MERCHANT_NUMBER +
+      "*" +
+      selectedAmountValue +
+      "#"
+    );
+
+  }
+
+
+  function updateUSSD() {
+
+    const ussd =
+      buildUSSD();
+
+
+    document.getElementById(
+      "ussdText"
+    ).innerHTML =
+      escapeHtml(ussd) +
+      ' <span class="ussd-copy" onclick="copyUSSD()">📋</span>';
+
+  }
+
+
+  /* =====================================================
+     OUVRIR USSD
+  ===================================================== */
+
+  function triggerUSSD() {
+
+    const ussd =
+      buildUSSD();
+
+
+    /*
+     * L'URI tel: permet au téléphone
+     * d'ouvrir le composeur avec le code USSD.
+     */
+
+    window.location.href =
+      "tel:" +
+      encodeURIComponent(ussd);
+
+  }
+
+
+  /* =====================================================
+     COPIER USSD
+  ===================================================== */
+
+  async function copyUSSD() {
+
+    const ussd =
+      buildUSSD();
+
+
+    await copyToClipboard(
+      ussd
+    );
+
+  }
+
+
+  /* =====================================================
+     COPIER MONTANT
+  ===================================================== */
+
+  async function copyAmount() {
+
+    await copyToClipboard(
+      String(selectedAmountValue)
+    );
+
+  }
+
+
+  /* =====================================================
+     COPIER
+  ===================================================== */
+
+  async function copyToClipboard(text) {
+
+    try {
+
+      if (
+        navigator.clipboard &&
+        window.isSecureContext
+      ) {
+await navigator.clipboard.writeText(
+          text
+        );
+
+      } else {
+
+        const textarea =
+          document.createElement("textarea");
+
+        textarea.value = text;
+
+        textarea.style.position =
+          "fixed";
+
+        textarea.style.opacity =
+          "0";
+
+        document.body.appendChild(
+          textarea
+        );
+
+        textarea.focus();
+
+        textarea.select();
+
+        document.execCommand(
+          "copy"
+        );
+
+        textarea.remove();
+
+      }
+
+
+      showTemporaryMessage(
+        "Copié avec succès."
+      );
+
+    } catch (e) {
+
+      alert(
+        "Impossible de copier automatiquement."
+      );
+
+    }
+
+  }
+
+
+  /* =====================================================
+     VÉRIFICATION DU STATUT
+  ===================================================== */
+
+  async function refreshStatus() {
+
+    const button =
+      document.getElementById(
+        "refreshBtn"
+      );
+
+    const statusBox =
+      document.getElementById(
+        "paymentStatus"
+      );
+
+
+    button.disabled = true;
+
+    button.textContent =
+      "Vérification...";
+
+
+    showPaymentStatus(
+      "Vérification du statut de votre dépôt...",
+      "pending"
+    );
+
+
+    try {
+
+      /*
+       * Si on possède l'ID exact du dépôt,
+       * on vérifie uniquement cette demande.
+       */
+
+      if (currentDepositId) {
+
+        const rows =
+          await supabaseFetch(
+            "/rest/v1/deposits" +
+            "?select=id,amount_xof,status,requested_at,processed_at,admin_note" +
+            "&id=eq." +
+            encodeURIComponent(
+              currentDepositId
+            ) +
+            "&limit=1"
+          );
+
+
+        if (rows?.length) {
+
+          const deposit =
+            rows[0];
+
+
+          currentDepositStatus =
+            deposit.status;
+
+
+          if (
+            deposit.status ===
+            "approved"
+          ) {
+
+            showPaymentStatus(
+              "✓ Paiement validé. Votre dépôt a été approuvé par l'administration.",
+              "success"
+            );
+
+          } else if (
+            deposit.status ===
+            "rejected"
+          ) {
+
+            showPaymentStatus(
+              "✕ Cette demande de dépôt a été rejetée." +
+              (
+                deposit.admin_note
+                  ? " Motif : " +
+                    deposit.admin_note
+                  : ""
+              ),
+              "error"
+            );
+
+          } else {
+
+            showPaymentStatus(
+              "Votre paiement est toujours en attente de validation. Si vous avez déjà payé, veuillez patienter puis rafraîchir.",
+              "pending"
+            );
+
+          }
+
+
+          return;
+
+        }
+
+      }
+
+
+      /*
+       * Fallback :
+       * si l'ID n'est pas disponible,
+       * on recherche la dernière demande
+       * de cet utilisateur avec le même montant.
+       */
+
+      const rows =
+        await supabaseFetch(
+          "/rest/v1/deposits" +
+          "?select=id,amount_xof,status,requested_at,processed_at,admin_note" +
+          "&user_id=eq." +
+          encodeURIComponent(
+            currentUser.user_id
+          ) +
+          "&amount_xof=eq." +
+          encodeURIComponent(
+            selectedAmountValue
+          ) +
+          "&order=requested_at.desc" +
+          "&limit=1"
+        );
+
+
+      if (!rows?.length) {
+
+        showPaymentStatus(
+          "Aucune demande correspondant à ce paiement n'a été trouvée.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      const deposit =
+        rows[0];
+
+
+      currentDepositId =
+        deposit.id;
+
+      currentDepositStatus =
+        deposit.status;
+
+
+      if (
+        deposit.status ===
+        "approved"
+      ) {
+
+        showPaymentStatus(
+          "✓ Paiement validé. Votre dépôt a été approuvé par l'administration.",
+          "success"
+        );
+
+      } else if (
+        deposit.status ===
+        "rejected"
+      ) {
+
+        showPaymentStatus(
+          "✕ Cette demande a été rejetée.",
+          "error"
+        );
+
+      } else {
+
+        showPaymentStatus(
+          "Votre demande est toujours en attente de validation.",
+          "pending"
+        );
+
+      }
+
+    } catch (e) {
+
+      console.error(
+        "refreshStatus:",
+        e
+      );
+
+
+      showPaymentStatus(
+        "Impossible de vérifier le statut pour le moment. Veuillez réessayer.",
+        "error"
+      );
+
+    } finally {
+
+      button.disabled = false;
+
+      button.textContent =
+        "Rafraîchir";
+
+    }
+
+  }
+
+
+  /* =====================================================
+     AFFICHER STATUT
+  ===================================================== */
+
+  function showPaymentStatus(
+    text,
+    type
+  ) {
+
+    const box =
+      document.getElementById(
+        "paymentStatus"
+      );
+
+
+    box.textContent =
+      text;
+
+    box.className =
+      "payment-status show " +
+      type;
+
+  }
+
+
+  /* =====================================================
+     NAVIGATION PAGE 1
+  ===================================================== */
+
+  function goToPage1() {
+
+    document
+      .getElementById("page2")
+      .classList.remove("active");
+
+    document
+      .getElementById("page3")
+      .classList.remove("active");
+
+    document
+      .getElementById("page1")
+      .classList.add("active");
+
+  }
+
+
+  /* =====================================================
+     ERREURS
+  ===================================================== */
+
+  function showError(
+    elementId,
+    text
+  ) {
+
+    const element =
+      document.getElementById(
+        elementId
+      );
+
+
+    element.textContent =
+      text;
+
+    element.classList.add(
+      "show"
+    );
+
+  }
+
+
+  function hideError(
+    elementId
+  ) {
+
+    const element =
+      document.getElementById(
+        elementId
+      );
+
+
+    element.textContent =
+      "";
+
+    element.classList.remove(
+      "show"
+    );
+
+  }
+
+
+  /* =====================================================
+     MESSAGE TEMPORAIRE
+  ===================================================== */
+
+  function showTemporaryMessage(
+    text
+  ) {
+
+    const existing =
+      document.getElementById(
+        "temporaryCopyMessage"
+      );
+
+
+    if (existing) {
+
+      existing.remove();
+
+    }
+
+
+    const message =
+      document.createElement(
+        "div"
+      );
+
+
+    message.id =
+      "temporaryCopyMessage";
+
+message.textContent =
+      text;
+
+
+    message.style.position =
+      "fixed";
+
+    message.style.left =
+      "50%";
+
+    message.style.bottom =
+      "25px";
+
+    message.style.transform =
+      "translateX(-50%)";
+
+    message.style.background =
+      "#2d3748";
+
+    message.style.color =
+      "#fff";
+
+    message.style.padding =
+      "10px 16px";
+
+    message.style.borderRadius =
+      "20px";
+
+    message.style.fontSize =
+      "13px";
+
+    message.style.fontWeight =
+      "700";
+
+    message.style.zIndex =
+      "9999";
+
+
+    document.body.appendChild(
+      message
+    );
+
+
+    setTimeout(() => {
+
+      message.remove();
+
+    }, 1800);
+
+  }
+
+
+  /* =====================================================
+     ESCAPE HTML
+  ===================================================== */
+
+  function escapeHtml(
+    value
+  ) {
+
+    return String(
+      value ?? ""
+    ).replace(
+      /[&<>"']/g,
+      m => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      }[m])
+    );
+
+  }
+
+
+  /* =====================================================
+     CHARGEMENT INITIAL
+  ===================================================== */
+
+  loadSettings();
+
+
+  /*
+   * Restaurer éventuellement une demande
+   * si l'utilisateur revient sur la page.
+   */
+
+  try {
+
+    const saved =
+      JSON.parse(
+        sessionStorage.getItem(
+          "nexavest_current_deposit"
+        ) || "null"
+      );
+
+
+    if (saved?.deposit_id) {
+
+      currentDepositId =
+        saved.deposit_id;
+
+    }
+
+  } catch (e) {}
+
+</script>
+
+</body>
+</html>
+
+  }
+
+
+  /* ===============================================
