@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NEXAVEST - Dépôt</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #111827;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            margin: auto;
+            min-height: 100vh;
+            background: #ffffff;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff7900, #ff9d00);
+            color: white;
+            padding: 22px 20px;
+            border-radius: 0 0 22px 22px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: .95;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 22px;
+            color: #6b7280;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .step span {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e5e7eb;
+            color: #6b7280;
+        }
+
+        .step span.active {
+            background: #ff7900;
+            color: white;
+        }
+
+        h2 {
+            font-size: 21px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .amount-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .amount-btn {
+            border: 2px solid #e5e7eb;
+            background: white;
+            border-radius: 13px;
+            padding: 16px 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .amount-btn:hover {
+            border-color: #ff7900;
+        }
+
+        .amount-btn.selected {
+            border-color: #ff7900;
+            background: #fff4e8;
+            color: #f36f00;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            border: 1px solid #d1d5db;
+            border-radius: 12px;
+            padding: 14px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #ff7900;
+        }
+
+        .country-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 18px;
+            background: #fafafa;
+        }
+
+        .flag {
+            font-size: 25px;
+        }
+
+        .country-name {
+            font-weight: bold;
+        }
+
+        .operator {
+            border: 2px solid #ff7900;
+            background: #fff7ed;
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .operator-logo {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            background: #ff7900;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .operator-info strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .operator-info small {
+            color: #6b7280;
+        }
+
+        .warning {
+            background: #fff7ed;
+            border-left: 4px solid #ff7900;
+            border-radius: 8px;
+            padding: 13px;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            color: #7c2d12;
+        }
+
+        .payment-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 18px;
+        }
+
+        .payment-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+
+        .payment-row:last-child {
+            border-bottom: none;
+        }
+
+        .payment-row span:first-child {
+            color: #6b7280;
+        }
+
+        .payment-row strong {
+            text-align: right;
+        }
+
+        .ussd-box {
+            background: #111827;
+            color: white;
+            border-radius: 14px;
+            padding: 16px;
+            margin: 18px 0;
+        }
+
+        .ussd-label {
+            font-size: 12px;
+            opacity: .7;
+            margin-bottom: 8px;
+        }
+
+        .ussd-code {
+            font-size: 17px;
+            font-weight: bold;
+            word-break: break-all;
+            line-height: 1.5;
+        }
+
+        .btn {
+            width: 100%;
+            border: none;
+            border-radius: 13px;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .btn-primary {
+            background: #ff7900;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #e96800;
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .btn-copy {
+            background: white;
+            color: #111827;
+            margin-top: 12px;
+        }
+
+        .status {
+            display: none;
+            padding: 13px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .status.show {
+            display: block;
+        }
+
+        .status.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status.success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status.info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .loading {
+            opacity: .65;
+            pointer-events: none;
+        }
+
+        .back {
+            background: transparent;
+            border: none;
+            color: #6b7280;
+            padding: 10px 0;
+            font-size: 14px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .small-note {
+            text-align: center;
+            color: #6b7280;
+            font-size: 12px;
+            line-height: 1.5;
+            margin-top: 15px;
+        }
+
+        .refresh {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        @media (max-width: 380px) {
+            .amount-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>NEXAVEST</h1>
+        <p>Effectuez votre dépôt rapidement et en toute simplicité.</p>
+    </div>
+
+    <div class="content">
+
+        <!-- ================= PAGE 1 ================= -->
+        <section id="page1" class="page active">
+
+            <div class="step">
+                <span class="active">1</span>
+                <span>2</span>
+                <span>3</span>
+            </div>
+
+            <h2>Choisissez le montant</h2>
+
+            <p class="subtitle">
+                Sélectionnez le montant que vous souhaitez déposer.
+            </p>
+
+            <div class="amount-grid">
+
+                <button class="amount-btn" data-amount="3500">
+                    3 500 XOF
+                </button>
+
+                <button class="amount-btn" data-amount="8000">
+                    8 000 XOF
+                </button>
+
+                <button class="amount-btn" data-amount="20000">
+                    20 000 XOF
+                </button>
+
+                <button class="amount-btn" data-amount="50000">
+                    50 000 XOF
+                </button>
+
+                <button class="amount-btn" data-amount="80000">
+                    80 000 XOF
+                </button>
+
+                <button class="amount-btn" data-amount="100000">
+                    100 000 XOF
+                </button>
+
+                <button class="amount-btn" data-amount="200000">
+                    200 000 XOF
+                </button>
+
+            </div>
+
+            <div class="input-group">
+                <label for="customAmount">
+                    Ou entrez un autre montant
+                </label>
+
+                <input
+                    type="number"
+                    id="customAmount"
+                    placeholder="Exemple : 15000"
+                    min="1"
+                    inputmode="numeric"
+                >
+            </div>
+
+            <div class="country-box">
+                <div class="flag">🇧🇫</div>
+
+                <div>
+                    <div class="country-name">
+                        Burkina Faso
+                    </div>
+
+                    <small>
+                        Pays sélectionné
+                    </small>
+                </div>
+            </div>
+
+            <div id="status1" class="status"></div>
+
+            <button id="confirmAmountBtn" class="btn btn-primary">
+                Confirmer
+            </button>
+
+        </section>
+
+
+        <!-- ================= PAGE 2 ================= -->
+        <section id="page2" class="page">
+
+            <div class="step">
+                <span class="active">✓</span>
+                <span class="active">2</span>
+                <span>3</span>
+            </div>
+
+            <button id="backToPage1Btn" class="back">
+                ← Retour
+            </button>
+
+            <h2>Mode de paiement</h2>
+
+            <p class="subtitle">
+                Vérifiez votre numéro Orange Money.
+            </p>
+
+            <div class="payment-card">
+
+                <div class="payment-row">
+                    <span>Montant</span>
+                    <strong id="page2Amount">
+                        0 XOF
+                    </strong>
+                </div>
+
+                <div class="payment-row">
+                    <span>Pays</span>
+                    <strong>
+                        🇧🇫 Burkina Faso
+                    </strong>
+                </div>
+
+            </div>
+
+            <div class="operator">
+
+                <div class="operator-logo">
+                    ORANGE
+                </div>
+
+                <div class="operator-info">
+                    <strong>Orange Money</strong>
+                    <small>Burkina Faso</small>
+                </div>
+
+            </div>
+
+            <div class="input-group">
+
+                <label for="phone">
+                    Votre numéro Orange Money
+                </label>
+
+                <input
+                    type="tel"
+                    id="phone"
+                    placeholder="+226 70 00 00 00"
+                    maxlength="15"
+                    inputmode="tel"
+                >
+
+            </div>
+
+            <div class="warning">
+                <strong>Important :</strong>
+                utilisez un numéro Orange Money actif et vérifiez
+                attentivement le montant avant de confirmer le paiement.
+            </div>
+
+            <div id="status2" class="status"></div>
+
+            <button id="confirmPhoneBtn" class="btn btn-primary">
+                Confirmer
+            </button>
+
+        </section>
+
+
+        <!-- ================= PAGE 3 ================= -->
+        <section id="page3" class="page">
+
+            <div class="step">
+                <span class="active">✓</span>
+                <span class="active">✓</span>
+                <span class="active">3</span>
+            </div>
+
+            <button id="backToPage2Btn" class="back">
+                ← Retour
+            </button>
+
+            <h2>Effectuez le paiement</h2>
+
+            <p class="subtitle">
+                Utilisez le code USSD ci-dessous pour effectuer votre dépôt.
+            </p>
+
+            <div class="payment-card">
+
+                <div class="payment-row">
+                    <span>Montant à payer</span>
+
+                    <strong id="page3Amount">
+                        0 XOF
+                    </strong>
+                </div>
+
+                <div class="payment-row">
+                    <span>Compte marchand</span>
+
+                    <strong>
+                        45250868
+                    </strong>
+                </div>
+
+                <div class="payment-row">
+                    <span>Nom du compte</span>
+
+                    <strong>
+                        Sagnon Gaoussou
+                    </strong>
+                </div>
+
+            </div>
+
+            <button id="payBtn" class="btn btn-primary">
+                Cliquez pour payer
+            </button>
+
+            <div class="ussd-box">
+
+                <div class="ussd-label">
+                    CODE DE PAIEMENT
+                </div>
+
+                <div id="ussdCode" class="ussd-code">
+                    *144*2*1*45250868*0#
+                </div>
+
+                <button id="copyUssdBtn" class="btn btn-copy">
+                    Copier le code
+                </button>
+
+            </div>
+
+            <div id="status3" class="status"></div>
+
+            <button id="refreshBtn" class="btn refresh">
+                ↻ Rafraîchir le statut
+            </button>
+
+            <p class="small-note">
+                Après avoir effectué le paiement, cliquez sur
+                « Rafraîchir le statut ». Votre dépôt sera crédité
+                après validation du paiement.
+            </p>
+
+        </section>
+
+    </div>
+
+</div>
+
+<script src="deposit.js" defer></script>
+
+</body>
+                  </html>
